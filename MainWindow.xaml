@@ -1,0 +1,612 @@
+﻿<Window x:Class="jaime_barentine_bowling_code_challenge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:jaime_barentine_bowling_code_challenge"
+        mc:Ignorable="d"
+        Title="Bowling Score" Width="1000" Height="400">
+    <Border BorderBrush="Black" BorderThickness="2">
+        <Grid Margin="10">
+
+            <!-- used for drawing borders on the grid -->
+            <Grid.Resources>
+                <SolidColorBrush x:Key="brush" Color="Silver"/>
+            </Grid.Resources>
+
+            <!-- define columns and rows of the grid -->
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition  Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <!--ColumnDefinition Width="*" /-->
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <!--RowDefinition Height="*" /-->
+                
+            </Grid.RowDefinitions>
+
+
+            <!-- Sets the names and border graphics of the numbers label at the top -->
+            <Label Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">Names</Label>
+            <Label Grid.Column="1" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">1</Label>
+            <Label Grid.Column="2" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">2</Label>
+            <Label Grid.Column="3" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">3</Label>
+            <Label Grid.Column="4" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">4</Label>
+            <Label Grid.Column="5" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">5</Label>
+            <Label Grid.Column="6" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">6</Label>
+            <Label Grid.Column="7" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">7</Label>
+            <Label Grid.Column="8" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">8</Label>
+            <Label Grid.Column="9" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">9</Label>
+            <Label Grid.Column="10" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">10</Label>
+            <!--Label Grid.Column="11" Grid.Row="1" BorderBrush="{StaticResource brush}" BorderThickness="1 1 0 1">Results</Label-->
+            <TextBlock Grid.Column="5">
+                <Run Text="/ = spare"/>
+                <LineBreak/>
+                <Run Text="x = strike"/>
+                <LineBreak/>
+                <Run Text="_ = gutter"/>
+            </TextBlock>
+
+
+            <!-- defines borders for the players (there were originally going to be 4) -->
+            <Border Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+            </Border>
+            <Border Grid.Column="0" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+            </Border>
+            <Border Grid.Column="0" Grid.Row="4" BorderBrush="Silver" BorderThickness="0.75">
+            </Border>
+            <Border Grid.Column="0" Grid.Row="5" BorderBrush="Silver" BorderThickness="0.75">
+            </Border>
+
+            <!-- player text boxes on the left-hand side -->
+            <TextBlock x:Name="Player1" Grid.Row="2" ></TextBlock>
+            <TextBlock x:Name="Player2" Grid.Row="3" ></TextBlock>
+            <TextBlock x:Name="Player3" Grid.Row="4" ></TextBlock>
+            <TextBlock x:Name="Player4" Grid.Row="5" ></TextBlock>
+
+            <TextBlock x:Name="DebugText" Grid.Column="1" Grid.ColumnSpan="2">
+            <Run Text="Add up to two names, click and"/>
+            <LineBreak/>
+             <Run Text="fill a box with a score to start."/>
+            </TextBlock>
+
+
+
+            <!--ListBox Grid.Column="1" Grid.Row="4" x:Name="lstNames" /-->
+
+            <StackPanel Grid.Column="0" Grid.Row="0" Margin="5,0,0,0">
+                <TextBox x:Name="txtName" />
+                <Button x:Name="btnAdd" Margin="0,5,0,0" Click="ButtonAddName_Click">Add Name</Button>
+
+            </StackPanel>
+            
+            
+            
+             <!-- The next large chunk of data is each of the 20 scoring boxes, separated by player -->
+            
+            <!-- ////////////////// PLAYER 1 /////////////// -->
+            
+            <!-- Player 1 Turn 1 -->
+            <Border Grid.Column="1" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t1_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t1_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t1_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+            <!-- Player 1 Turn 2 -->
+            <Border Grid.Column="2" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t2_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t2_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t2_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+            <!-- Player 1 Turn 3 -->
+            <Border Grid.Column="3" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t3_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t3_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t3_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 4 -->
+            <Border Grid.Column="4" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t4_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t4_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t4_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 5 -->
+            <Border Grid.Column="5" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t5_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t5_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t5_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 6 -->
+            <Border Grid.Column="6" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t6_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t6_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t6_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 7 -->
+            <Border Grid.Column="7" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t7_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t7_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t7_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 8 -->
+            <Border Grid.Column="8" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t8_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t8_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t8_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 9 -->
+            <Border Grid.Column="9" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t9_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t9_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t9_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 1 Turn 10 -->
+            <Border Grid.Column="10" Grid.Row="2" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="2" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p1t10_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t10_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p1t10_third" Grid.Column="2" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p1t10_final" Grid.Row="1" Grid.ColumnSpan="3" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+             <!-- //////////////// PLAYER 2 /////////////// -->
+
+            <!-- Player 2 Turn 1 -->
+            <Border Grid.Column="1" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t1_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t1_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t1_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+            <!-- Player 2 Turn 2 -->
+            <Border Grid.Column="2" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t2_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t2_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t2_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+            <!-- Player 1 Turn 3 -->
+            <Border Grid.Column="3" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t3_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t3_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t3_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 4 -->
+            <Border Grid.Column="4" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t4_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t4_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t4_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 5 -->
+            <Border Grid.Column="5" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t5_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t5_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t5_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 6 -->
+            <Border Grid.Column="6" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t6_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t6_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t6_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 7 -->
+            <Border Grid.Column="7" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t7_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t7_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t7_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 8 -->
+            <Border Grid.Column="8" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t8_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t8_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t8_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 9 -->
+            <Border Grid.Column="9" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="1" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t9_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t9_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t9_final" Grid.Row="1" Grid.ColumnSpan="2" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Player 2 Turn 10 -->
+            <Border Grid.Column="10" Grid.Row="3" BorderBrush="Silver" BorderThickness="0.75">
+                <StackPanel Orientation="Horizontal"  Margin="5,0,0,0" >
+                    <Grid Grid.Column="2" Grid.Row="1" Width="73" >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47.275" />
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="p2t10_first" Grid.Column="0" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t10_second" Grid.Column="1" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <TextBox x:Name="p2t10_third" Grid.Column="2" TextChanged="ScoreChangeEvent" IsEnabled="False"/>
+                        <!--TextBox x:Name="" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" /-->
+                        <TextBlock x:Name="p2t10_final" Grid.Row="1" Grid.ColumnSpan="3" ></TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+
+            <!-- clear and roll buttons-->
+            <Button x:Name="btnClear" Grid.Column="3" Margin="0,5,0,0" Click="ButtonClearName_Click">Reset</Button>
+            <!--Button x:Name="btnRoll" Grid.Column="4" Margin="0,5,0,0" Click="ButtonRollBall_Click">Roll Ball</Button-->
+
+        </Grid>
+    </Border>
+</Window>
