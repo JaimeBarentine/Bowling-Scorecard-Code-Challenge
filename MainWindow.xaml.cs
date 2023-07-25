@@ -433,9 +433,8 @@ namespace jaime_barentine_bowling_code_challenge
         p1t1_second would mean it's the second roll's textbox
         p1t10_third; only the 10th turn has a 3rd roll, so its logic slightly differs from the rest and has a 3rd input textbox
         Due to time, most of the if-elses are copied and pasted
-        Most relevant comments are on the top/original instance of the copied statement
-        Given more time, my next step would be to condense all of this into a couple clean functions
-        I'm currently kicking myself for not having done that from the start
+        The next step would be to condense all of this into a couple clean functions
+        In the future, this will be how I do it from the start
 
         The central if-else is split into three parts:
 
