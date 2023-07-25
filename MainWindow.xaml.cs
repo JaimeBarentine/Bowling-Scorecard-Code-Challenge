@@ -434,7 +434,7 @@ namespace jaime_barentine_bowling_code_challenge
         p1t10_third; only the 10th turn has a 3rd roll, so its logic slightly differs from the rest and has a 3rd input textbox
         Due to time, most of the if-elses are copied and pasted
         Most relevant comments are on the top/original instance of the copied statement
-        Given more time, my next step would be to condense all this spaghetti to a couple clean functions
+        Given more time, my next step would be to condense all of this into a couple clean functions
         I'm currently kicking myself for not having done that from the start
 
         The central if-else is split into three parts:
